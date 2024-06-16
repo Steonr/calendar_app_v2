@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      - NAME=Calendar_app
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/src/auth/Gmail/client_secretfile.json
+    volumes:
+      - .:/app
+      - ./src/auth/Gmail:/app/src/auth/Gmail
+    command: python -m src.main
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    command: python -m unittest discover tests
