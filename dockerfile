@@ -20,7 +20,7 @@ COPY . /app
 WORKDIR /app
 
 # Copy the credentials file (if needed for Google API)
-COPY service_account.json /app/service_account.json
+COPY ./src/auth/Gmail/client_secretfile.json /app/src/auth/Gmail
 
 # Run the application
 CMD ["python", "read_excel.py"]
