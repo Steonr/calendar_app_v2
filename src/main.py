@@ -3,6 +3,7 @@ from src.lib.helpers import setup_logging, give_dir
 from src.lib.gmail_functions import check_creds
 
 def main():
+    # Testing git push
     try:
         setup_logging()
         logger = logging.getLogger("main")
