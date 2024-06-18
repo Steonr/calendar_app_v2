@@ -10,3 +10,12 @@
 2024-06-07 21:15:22 - main - INFO - Gmail credentials verified successfully
 2024-06-08 09:09:43 - main - INFO - Application started
 2024-06-08 09:09:43 - main - INFO - Gmail credentials verified successfully
+2024-06-16 16:37:30 - main - INFO - Application started
+2024-06-16 16:37:30 - gmail - INFO - checking for token
+2024-06-16 16:37:30 - gmail - INFO - Token present and loaded
+2024-06-16 16:37:30 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2024-06-16 16:37:30 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-06-16 16:37:30 - main - INFO - Application started
+2024-06-16 16:37:30 - main - INFO - Gmail credentials verified successfully
+2024-06-16 16:37:31 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2024-06-16 16:37:31 - main - INFO - Gmail credentials verified successfully

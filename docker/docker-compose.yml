@@ -10,10 +10,11 @@ services:
     environment:
       - NAME=Calendar_app
       - GOOGLE_APPLICATION_CREDENTIALS=/app/src/auth/Gmail/client_secretfile.json
+      - PYTHONPATH=/app
     volumes:
       - .:/app
       - ./src/auth/Gmail:/app/src/auth/Gmail
-    command: python -m src/main.py
+    command: python -m src.main
 
   tests:
     build:
@@ -21,4 +22,6 @@ services:
       dockerfile: docker/Dockerfile
     volumes:
       - .:/app
-    command: python -m unittest discover tests
+    environment:
+      - PYTHONPATH=/app
+    command: python -m unittest discover -s tests -p "*.py"
