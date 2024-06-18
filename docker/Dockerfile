@@ -1,0 +1,20 @@
+# Use an official Python runtime as a parent image
+FROM python:3.10-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the requirements file into the container
+COPY ../requirements.txt .
+
+# Install any dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of the application code
+COPY .. .
+
+# Ensure the secret file is copied to the correct location
+COPY ../src/auth/Gmail/client_secretfile.json /app/src/auth/Gmail/client_secretfile.json
+
+# Run the application
+CMD ["python", "src/main.py"]

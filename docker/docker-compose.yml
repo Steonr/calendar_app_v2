@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   app:
-    build: .
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
     ports:
       - "80:80"
     environment:
@@ -11,12 +13,12 @@ services:
     volumes:
       - .:/app
       - ./src/auth/Gmail:/app/src/auth/Gmail
-    command: python -m src.main
+    command: python -m src/main.py
 
   tests:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: docker/Dockerfile
     volumes:
       - .:/app
     command: python -m unittest discover tests
