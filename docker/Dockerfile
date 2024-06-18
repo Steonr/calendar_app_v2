@@ -16,5 +16,8 @@ COPY .. .
 # Ensure the secret file is copied to the correct location
 COPY ../src/auth/Gmail/client_secretfile.json /app/src/auth/Gmail/client_secretfile.json
 
+# Set the PYTHONPATH environment variable
+ENV PYTHONPATH="/app"
+
 # Run the application
 CMD ["python", "src/main.py"]
