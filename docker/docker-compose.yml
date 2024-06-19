@@ -3,7 +3,7 @@ version: '3.8'
 services:
   app:
     build:
-      context: $PWD
+      context: ..
       dockerfile: docker/Dockerfile
     ports:
       - "80:80"
@@ -13,16 +13,16 @@ services:
       - PYTHONPATH=/app
     volumes:
       - $PWD:/app
-      - $PWD/logs:app/logs
+      - $PWD/src/auth/Gmail:/app/src/auth/Gmail
+      - $PWD/logs:/app/logs
     command: python -m src.main
 
   tests:
     build:
-      context: $PWD
+      context: ..
       dockerfile: docker/Dockerfile
     volumes:
       - $PWD:/app
-      - $PWD/logs:/app/logs
     environment:
       - PYTHONPATH=/app
     command: python -m unittest discover -s tests -p "*.py"
