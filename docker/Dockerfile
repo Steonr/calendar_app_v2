@@ -4,6 +4,13 @@ FROM python:3.10-slim
 # Set the working directory in the container
 WORKDIR /app
 
+# Install dependencies and tzdata for timezone configuration
+RUN apt-get update && apt-get install -y \
+    tzdata
+
+# Set the timezone
+ENV TZ=Europe/Brussels
+
 # Copy the requirements file into the container
 COPY ../requirements.txt .
 

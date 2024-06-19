@@ -11,6 +11,7 @@ services:
       - NAME=Calendar_app
       - GOOGLE_APPLICATION_CREDENTIALS=/app/src/auth/Gmail/client_secretfile.json
       - PYTHONPATH=/app
+      - TZ=Europe/Brussels
     volumes:
       - $PWD:/app
       - $PWD/src/auth/Gmail:/app/src/auth/Gmail
@@ -25,4 +26,5 @@ services:
       - $PWD:/app
     environment:
       - PYTHONPATH=/app
+      - TZ=Europe/Brussels
     command: python -m unittest discover -s tests -p "*.py"
