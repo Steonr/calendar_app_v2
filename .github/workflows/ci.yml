@@ -29,19 +29,20 @@ jobs:
         pip install -r requirements.txt
         pip install pytest pytest-cov pytest-html
 
+
     - name: Run tests with coverage
       run: |
         source venv/bin/activate
-        pytest --cov=src --cov-report=html --html=report.html
+        pytest --cov=src --cov-report=xml --cov-report=html --html=report.html
 
     - name: Upload coverage report
       uses: actions/upload-artifact@v2
       with:
         name: coverage-report
-        path: ./
+        path: htmlcov
 
     - name: Upload test report
       uses: actions/upload-artifact@v2
       with:
         name: test-report
-        path: ./report.html
+        path: report.html
