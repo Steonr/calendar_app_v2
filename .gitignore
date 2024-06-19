@@ -103,3 +103,7 @@ venv.bak/
 # Environments for linting/checking tools
 .pytype/
 .pyre/
+
+# Logger
+logs/
+*.log
