@@ -46,3 +46,8 @@ jobs:
       with:
         name: test-report
         path: report.html
+    - name: Run tests and display output
+      run: |
+        source venv/bin/activate
+        echo "Running tests..."
+        pytest | tee test_results.txt  
