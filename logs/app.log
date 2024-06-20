@@ -19,3 +19,71 @@
 2024-06-16 16:37:30 - main - INFO - Gmail credentials verified successfully
 2024-06-16 16:37:31 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
 2024-06-16 16:37:31 - main - INFO - Gmail credentials verified successfully
+2024-06-18 13:55:52 - main - INFO - Application started
+2024-06-18 13:55:52 - gmail - INFO - checking for token
+2024-06-18 13:55:52 - gmail - INFO - Token present and loaded
+2024-06-18 13:55:52 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2024-06-18 13:55:52 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-06-18 13:55:52 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2024-06-18 13:55:52 - main - INFO - Gmail credentials verified successfully
+2024-06-18 13:55:59 - main - INFO - Application started
+2024-06-18 13:55:59 - gmail - INFO - checking for token
+2024-06-18 13:55:59 - gmail - INFO - Token present and loaded
+2024-06-18 13:55:59 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2024-06-18 13:55:59 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-06-18 13:56:00 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2024-06-18 13:56:00 - main - INFO - Gmail credentials verified successfully
+2024-06-18 22:34:12 - main - INFO - Application started
+2024-06-18 22:34:12 - main - INFO - Gmail credentials verified successfully
+2024-06-18 20:54:43 - main - INFO - Application started
+2024-06-18 20:54:43 - gmail - INFO - checking for token
+2024-06-18 20:54:43 - gmail - INFO - Token present and loaded
+2024-06-18 20:54:43 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2024-06-18 20:54:43 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-06-18 20:54:43 - main - INFO - Application started
+2024-06-18 20:54:43 - main - INFO - Gmail credentials verified successfully
+2024-06-18 20:54:43 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2024-06-18 20:54:43 - main - INFO - Gmail credentials verified successfully
+2024-06-18 20:56:37 - main - INFO - Application started
+2024-06-18 20:56:37 - gmail - INFO - checking for token
+2024-06-18 20:56:37 - gmail - INFO - Token present and loaded
+2024-06-18 20:56:37 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2024-06-18 20:56:37 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-06-18 20:56:37 - main - INFO - Application started
+2024-06-18 20:56:37 - main - INFO - Gmail credentials verified successfully
+2024-06-18 20:56:37 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2024-06-18 20:56:37 - main - INFO - Gmail credentials verified successfully
+2024-06-19 08:41:55 - main - INFO - Application started
+2024-06-19 08:41:55 - gmail - INFO - checking for token
+2024-06-19 08:41:55 - gmail - INFO - Token present and loaded
+2024-06-19 08:41:55 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2024-06-19 08:41:55 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-06-19 08:41:55 - main - INFO - Application started
+2024-06-19 08:41:55 - main - INFO - Gmail credentials verified successfully
+2024-06-19 08:41:56 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2024-06-19 08:41:56 - main - INFO - Gmail credentials verified successfully
+2024-06-19 09:09:11 - main - INFO - Application started
+2024-06-19 09:09:11 - gmail - INFO - checking for token
+2024-06-19 09:09:11 - gmail - INFO - Token present and loaded
+2024-06-19 09:09:11 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2024-06-19 09:09:11 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-06-19 09:09:11 - main - INFO - Application started
+2024-06-19 09:09:11 - main - INFO - Gmail credentials verified successfully
+2024-06-19 09:09:11 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2024-06-19 09:09:11 - main - INFO - Gmail credentials verified successfully
+2024-06-19 11:13:39 - main - INFO - Application started
+2024-06-19 11:13:39 - gmail - INFO - checking for token
+2024-06-19 11:13:39 - gmail - INFO - Token present and loaded
+2024-06-19 11:13:39 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2024-06-19 11:13:39 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-06-19 11:13:39 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2024-06-19 11:13:39 - main - INFO - Gmail credentials verified successfully
+2024-06-19 11:40:36 - main - INFO - Application started
+2024-06-19 11:40:36 - gmail - INFO - checking for token
+2024-06-19 11:40:36 - gmail - INFO - Token present and loaded
+2024-06-19 11:40:36 - google.auth.transport.requests - DEBUG - Making request: POST https://oauth2.googleapis.com/token
+2024-06-19 11:40:36 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): oauth2.googleapis.com:443
+2024-06-19 11:40:36 - main - INFO - Application started
+2024-06-19 11:40:36 - main - INFO - Gmail credentials verified successfully
+2024-06-19 11:40:36 - urllib3.connectionpool - DEBUG - https://oauth2.googleapis.com:443 "POST /token HTTP/1.1" 200 None
+2024-06-19 11:40:36 - main - INFO - Gmail credentials verified successfully

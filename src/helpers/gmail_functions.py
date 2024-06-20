@@ -5,7 +5,7 @@ import logging
 import pickle
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
-from lib.helpers import give_dir
+from helpers.helpers import give_dir
 from config import SECRET_FILE_PATH, TOKEN_PATH
 
 logger = logging.getLogger("gmail")

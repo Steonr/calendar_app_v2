@@ -8,7 +8,7 @@ main_dir_path = os.path.dirname(dir_name)
 
 import unittest
 from unittest.mock import patch, MagicMock
-from src.lib.gmail_functions import get_creds, check_creds
+from src.helpers.gmail_functions import get_creds, check_creds
 
 class TestGmailFunctions(unittest.TestCase):
 

@@ -3,7 +3,7 @@ import os
 abs_path = os.path.abspath(__file__)
 dir_name = os.path.dirname(abs_path)
 main_dir_path = os.path.dirname(dir_name)
-from src.lib.helpers import give_dir, setup_logging
+from src.helpers.helpers import give_dir, setup_logging
 
 class TestHelpers(unittest.TestCase):
 
