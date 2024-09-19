@@ -1,7 +1,7 @@
 """ this class has the definition of the shift entity
 """
 from dataclasses import dataclass, asdict
-from src.domain.value_objects import ShiftId
+from src.domain.value_objects import ShiftId, uuid
 
 import datetime
 
@@ -12,6 +12,12 @@ class Shift:
     start_time: datetime
     end_time: datetime
     description: str
+
+    
+    def __post_init__(self):
+        # Validate that shift_id is a valid UUID
+        if not isinstance(self.shift_id, uuid.UUID):
+            raise ValueError(f"Invalid shift_id: {self.shift_id}")
 
     @classmethod
     def from_dict(cls, data):
