@@ -1,7 +1,7 @@
 import logging
-from interface_adapters.logging_service import LoggingService
+from infra.logging_service import LoggingService
 from frameworks_drivers.gmail_api import GmailAPI
-from interface_adapters.gmail_service import GmailService
+from infra.gmail_service import GmailService
 from use_cases.check_gmail_creds import CheckGmailCreds
 
 def main():

@@ -6,7 +6,8 @@ from config import SECRET_FILE_PATH, TOKEN_PATH
 from src.helpers.helpers import give_dir
 
 class GmailAPI:
-    SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+    def __init__(self):
+        self.SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
 
     def create_creds(self):
         flow = InstalledAppFlow.from_client_secrets_file(SECRET_FILE_PATH, self.SCOPES)

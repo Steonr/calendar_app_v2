@@ -1,4 +1,4 @@
-from interface_adapters.gmail_service import GmailService
+from infra.gmail_service import GmailService
 
 class CheckGmailCreds:
     def __init__(self, gmail_service: GmailService):
