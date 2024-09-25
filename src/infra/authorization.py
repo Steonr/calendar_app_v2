@@ -20,22 +20,17 @@ class AuthorizationService:
         self._scopes = ['https://www.googleapis.com/auth/gmail.readonly']
         self._token_path = token_path
         self._secret_file_path = secret_file_path
-        self.authorize()
-
-    def authorize(self):
-        """Authorize the user by obtaining and validating credentials.
-        """
-        self.get_credentials()
-        if not self._creds or not self._creds.valid:
-            self._refresh_or_validate_credentials()
-            self.save_credentials()
 
     def get_credentials(self) -> None:
         """Retrieve user credentials from a specified token file.
         """
         if os.path.exists(self._token_path):
-            with open(self._token_path, 'rb') as token_path:
-                self._creds = pickle.load(token_path)
+            with open(self._token_path, 'rb') as token:
+                self._creds = pickle.load(token)
+                
+        if not self._creds or not self._creds.valid:
+            self._refresh_or_validate_credentials()
+            self.save_credentials()
 
     def _refresh_or_validate_credentials(self) -> None:
         if self._creds and self._creds.expired and self._creds.refresh_token:
@@ -53,10 +48,3 @@ class AuthorizationService:
         # Save the credentials for the next run
         with open(self._token_path, "wb") as token:
             pickle.dump(self._creds, token)
-
-
-if __name__ == "__main__":
-    file_path = "./src/auth/gmail/token.pickle"
-    secret_file = "./src/auth/gmail/client_secretfile.json"
-    
-    auth = AuthorizationService(file_path, secret_file)

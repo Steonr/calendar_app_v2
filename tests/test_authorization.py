@@ -1,68 +1,114 @@
+import os
+import pickle
 import pytest
-from unittest.mock import patch, mock_open, MagicMock
+from unittest.mock import patch, mock_open, MagicMock, ANY
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
-import os
-from infra.authorization import Authorization
-@pytest.fixture
-def mock_os_path_exists():
-    with patch('os.path.exists') as mock_exists:
-        yield mock_exists
+from infra.authorization import AuthorizationService
 
 @pytest.fixture
-def mock_credentials():
-    with patch('google.oauth2.credentials.Credentials') as mock_creds:
-        yield mock_creds
+def mock_creds():
+    creds = MagicMock(spec=Credentials)
+    creds.valid = True
+    creds.expired = False
+    creds.refresh_token = 'mock_refresh_token'
+    return creds
 
-@pytest.fixture
-def mock_installed_app_flow():
-    with patch('google_auth_oauthlib.flow.InstalledAppFlow') as mock_flow:
-        yield mock_flow
-
-@pytest.fixture
-def mock_open_file():
-    with patch('builtins.open', mock_open()) as mock_file:
-        yield mock_file
-
-@pytest.mark.parametrize("token_exists, creds_valid, creds_expired, refresh_token, expected_creds", [
-    (True, True, False, False, "valid_creds"),  # happy path with valid token
-    (True, False, True, True, "refreshed_creds"),  # expired creds with refresh token
-    (True, False, True, False, "new_creds"),  # expired creds without refresh token
-    (False, False, False, False, "new_creds"),  # no token file
+@pytest.mark.parametrize("token_exists, creds_valid, creds_expired, refresh_token, expected_refresh_call", [
+    (True, True, False, 'mock_refresh_token', False),  # valid token
+    (True, False, True, 'mock_refresh_token', True),   # expired token with refresh
+    (False, False, False, None, True),                # no token file
 ], ids=[
     "valid_token",
-    "expired_with_refresh",
-    "expired_no_refresh",
+    "expired_token_with_refresh",
     "no_token_file"
 ])
-def test_authorization(mock_os_path_exists, mock_credentials, mock_installed_app_flow, mock_open_file,
-                       token_exists, creds_valid, creds_expired, refresh_token, expected_creds):
+def test_get_credentials(token_exists, creds_valid, creds_expired, refresh_token, expected_refresh_call, mock_creds):
     # Arrange
-    mock_os_path_exists.return_value = token_exists
-    mock_creds_instance = MagicMock()
-    mock_creds_instance.valid = creds_valid
-    mock_creds_instance.expired = creds_expired
-    mock_creds_instance.refresh_token = refresh_token
-    mock_credentials.from_authorized_user_file.return_value = mock_creds_instance
-    mock_credentials.return_value = mock_creds_instance
-    mock_flow_instance = MagicMock()
-    mock_installed_app_flow.from_client_secrets_file.return_value = mock_flow_instance
-    mock_flow_instance.run_local_server.return_value = "new_creds"
+    token_path = "./src/auth/gmail/token.pickle"
+    secret_file_path = "./src/auth/gmail/client_secretfile.json"
+    auth_service = AuthorizationService(token_path, secret_file_path)
+    mock_creds.valid = creds_valid
+    mock_creds.expired = creds_expired
+    mock_creds.refresh_token = refresh_token
 
-    # Act
-    auth = Authorization("token_path.json", "secret_file.json")
+    with patch('os.path.exists', return_value=token_exists), \
+         patch('builtins.open', mock_open()), \
+         patch('pickle.load', return_value=mock_creds), \
+         patch.object(auth_service, '_refresh_or_validate_credentials') as mock_refresh, \
+         patch.object(auth_service, 'save_credentials') as mock_save:
 
-    # Assert
-    if token_exists:
-        mock_credentials.from_authorized_user_file.assert_called_once_with("token_path.json", "secret_file.json")
-    else:
-        mock_credentials.from_authorized_user_file.assert_not_called()
+        # Act
+        auth_service.get_credentials()
 
-    if creds_expired and refresh_token:
-        mock_creds_instance.refresh.assert_called_once_with(Request())
-    elif not creds_valid:
-        mock_flow_instance.run_local_server.assert_called_once_with(port=0)
+        # Assert
+        if expected_refresh_call:
+            mock_refresh.assert_called_once()
+            mock_save.assert_called_once()
+        else:
+            mock_refresh.assert_not_called()
+       
 
-    mock_open_file.assert_called_once_with("token_path.json", "w")
-    mock_open_file().write.assert_called_once_with(expected_creds.to_json())
+@pytest.mark.parametrize("creds_expired, refresh_token, expected_refresh_call", [
+    (True, 'mock_refresh_token', True),  # expired token with refresh
+    (False, None, False),                # valid token
+], ids=[
+    "expired_token_with_refresh",
+    "valid_token"
+])
+def test_refresh_or_validate_credentials(creds_expired, refresh_token, expected_refresh_call, mock_creds):
+    # Arrange
+    token_path = "./src/auth/gmail/token.pickle"
+    secret_file_path = "./src/auth/gmail/client_secretfile.json"
+    auth_service = AuthorizationService(token_path, secret_file_path)
+    auth_service._creds = mock_creds
+    mock_creds.expired = creds_expired
+    mock_creds.refresh_token = refresh_token
+
+    with patch.object(mock_creds, 'refresh') as mock_refresh, \
+         patch.object(auth_service, '_validate_credentials', return_value=mock_creds) as mock_validate:
+
+        # Act
+        auth_service._refresh_or_validate_credentials()
+        # Assert
+        if expected_refresh_call:
+            mock_refresh.assert_called_once_with(ANY)
+        else:
+            mock_refresh.assert_not_called()
+            mock_validate.assert_called_once()
+
+def test_validate_credentials():
+    # Arrange
+    token_path = "./src/auth/gmail/token.pickle"
+    secret_file_path = "./src/auth/gmail/client_secretfile.json"
+    auth_service = AuthorizationService(token_path, secret_file_path)
+    mock_flow = MagicMock()
+    mock_creds = MagicMock(spec=Credentials)
+
+    with patch.object(InstalledAppFlow, 'from_client_secrets_file', return_value=mock_flow), \
+         patch.object(mock_flow, 'run_local_server', return_value=mock_creds):
+
+        # Act
+        creds = auth_service._validate_credentials()
+
+        # Assert
+        assert creds == mock_creds
+
+
+def test_save_credentials(mock_creds):
+    # Arrange
+    token_path = "./src/auth/gmail/token.pickle"
+    secret_file_path = "./src/auth/gmail/client_secretfile.json"
+    auth_service = AuthorizationService(token_path, secret_file_path)
+    auth_service._creds = mock_creds
+
+    with patch('builtins.open', mock_open()) as mock_file, \
+         patch('pickle.dump') as mock_pickle_dump:
+
+        # Act
+        auth_service.save_credentials()
+
+        # Assert
+        mock_file.assert_called_once_with(token_path, "wb")
+        mock_pickle_dump.assert_called_once_with(mock_creds, mock_file())
