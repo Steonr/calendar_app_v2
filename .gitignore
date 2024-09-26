@@ -109,3 +109,6 @@ logs/
 
 # Secrets
 secrets/
+
+# Auth
+src/aut/
