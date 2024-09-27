@@ -2,10 +2,10 @@ from abc import ABC, abstractmethod
 import concurrent.futures
 
 from google.cloud import pubsub_v1
-
 def callback(message: pubsub_v1.subscriber.message.Message) -> None:
     print(f"Received {message}.")
     message.ack()
+    return message
 
 
 class SubscriberClient:

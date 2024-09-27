@@ -111,4 +111,4 @@ logs/
 secrets/
 
 # Auth
-src/aut/
+src/auth/
