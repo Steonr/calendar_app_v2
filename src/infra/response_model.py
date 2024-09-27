@@ -17,3 +17,17 @@ class ResponsModel:
     def save_data(self, file_path):
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(self.to_dict(), f, ensure_ascii=False, indent=4)
+
+@dataclass
+class PullMessage:
+    historyId: str
+    expiration: str
+    @classmethod
+    def from_dict(cls, data):
+        ''' convert data from dictionary
+        '''
+        return cls(**data)
+    def to_dict(self):
+        ''' convert data to dictionary
+        '''
+        return asdict(self)

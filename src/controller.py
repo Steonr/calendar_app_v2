@@ -16,6 +16,7 @@ def main():
     file_path = "./src/auth/gmail/token.pickle"
     secret_file = "./src/auth/gmail/client_secretfile.json"
     response_path = './src/data/response/response.json'
+    messages_path = './src/data/response/messages.json'
     
     auth = AuthorizationService(file_path, secret_file)
     creds = auth.get_credentials()
@@ -28,15 +29,13 @@ def main():
         data = gmail.watch_request()
         response = ResponsModel.from_dict(data)
         response.save_data(response_path)
-        print(f"response: {response.to_dict()}")
-        print(f"response: {response.expiration}")
+        print(f"History ID: {response.historyId}")
+        print(f"expiration: {response.expiration}")
     except HttpError as error:
         print(f"Error: {error}")
 
     while True:
-        sub.streaming_pull()
-        time.sleep(10)
-
+        sub.pull_message()
 
 
 if __name__ == "__main__":
