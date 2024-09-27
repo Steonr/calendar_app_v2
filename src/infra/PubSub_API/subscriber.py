@@ -33,14 +33,13 @@ class SubscriberClient:
 
     def _set_policy(self):
         
-        policy = self._sub_client.get_iam_policy(request={"resource": self._sub_path})
         # Add all users as subscriber.
-        policy.bindings.add(
-            role="roles/pubsub.subscriber", members=["user:flebustorsten@gmail.com"]
+        self._policy.bindings.add(
+            role="roles/pubsub.publisher", members=["serviceAccount:Calendar@myproject-266417.iam.gserviceaccount.com"]
         )
         # Set the policy
-        self._policy = self._sub_client.set_iam_policy(request={"resource": self._topic_path, "policy": policy})
-        print(f"IAM policy for topic {self._topic_id} set: {policy}")
+        self._policy = self._sub_client.set_iam_policy(request={"resource": self._topic_path, "policy": self._policy})
+        print(f"IAM policy for topic {self._topic_id} set: {self._policy}")
 
     def streaming_pull(self, timeout = 5.0) -> None:
         ''' When `timeout` is not set, result() will block indefinitely
