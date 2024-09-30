@@ -1,7 +1,7 @@
 from googleapiclient.discovery import build
 
 request = {
-  'labelIds': ['INBOX'],
+  'labelIds': ['INBOX', 'UNREAD', 'SENT'],
   'topicName': 'projects/myproject-266417/topics/checkGmail'
 }
 
@@ -16,7 +16,9 @@ class GmailApi:
         return results.get("labels", [])
     def get_messages(self):
         return self._service.users().messages().list(userId="me").execute()
+    def get_message(self, Id: str):
+        return self._service.users().messages().get(userId="me", id=Id).execute()
 
-    def get_history_list(self):
-        return self._service.users().history().list(userId='me',startHistoryId='').execute()
+    def get_history_list(self, historyId):
+        return self._service.users().history().list(userId='me',startHistoryId=historyId).execute()
     

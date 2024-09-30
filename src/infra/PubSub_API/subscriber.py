@@ -12,6 +12,7 @@ def save_data(self, file_path):
 
 class SubscriberClient:
     def __init__(self):
+        self._message = {}
         self._messages = []
         self._project_id = "myproject-266417"
         self._topic_id = "checkGmail"
@@ -41,18 +42,15 @@ class SubscriberClient:
                 retry=retry.Retry(deadline=300),
             )
 
-            if len(response.received_messages) == 0:
-                return
-
             ack_ids = []
             for received_message in response.received_messages:
-                print(f"Received: {received_message.message.data}.")
+                self._message = json.loads(received_message.message.data)
+                print(f"Received: {self._message}.")
                 ack_ids.append(received_message.ack_id)
-
-            # Acknowledges the received messages so they will not be sent again.
-            self._sub_client.acknowledge(request={"subscription": self._sub_path, "ack_ids": ack_ids})
-
-            print(f"Received and acknowledged {len(response.received_messages)} messages from {self._sub_path}.")
+            if ack_ids:
+                # Acknowledges the received messages so they will not be sent again.
+                self._sub_client.acknowledge(request={"subscription": self._sub_path, "ack_ids": ack_ids})
+                print(f"Received and acknowledged {len(response.received_messages)} message(s) from {self._sub_path}.")
 
     def streaming_pull(self, file_path, timeout = 5.0) -> None:
         ''' When `timeout` is not set, result() will block indefinitely

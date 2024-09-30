@@ -19,7 +19,6 @@ class AuthorizationService:
         self._creds = None
         self._scopes = ['https://www.googleapis.com/auth/gmail.readonly',  
                         "https://www.googleapis.com/auth/gmail.modify",  
-                        "https://www.googleapis.com/auth/gmail.metadata", 
                         'https://mail.google.com/']
         self._token_path = token_path
         self._secret_file_path = secret_file_path
