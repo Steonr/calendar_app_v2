@@ -18,6 +18,7 @@ def main():
     response_path = './src/data/response/response.json'
     messages_path = './src/data/response/messages.json'
     message_path = './src/data/response/last_message.json'
+    messages_list_path = './src/data/response/messages_list.json'
     history_list_path = './src/data/response/history_list.json'
     
     auth = AuthorizationService(file_path, secret_file)
@@ -25,11 +26,11 @@ def main():
     gmail = GmailApi(SubscriberClient, creds)
     sub = SubscriberClient()
     pub = PublisherClient()
+    messages_list = HistoryList()
     history_list = HistoryList()
     mail = Message()
     
-    
-
+    gmail.stop_request()
     try:
         data = gmail.watch_request()
         response = ResponsModel.from_dict(data)
@@ -39,15 +40,27 @@ def main():
     except HttpError as error:
         print(f"Error: {error}")
 
+    history_list.set_historyId(response.historyId)
+    history_Id = history_list.get_historyId()
+    history_list.data = gmail.get_history_list(history_Id)
+    history_list.save_data(history_list_path)
+
     while True:
         sub.pull_message()
         if response:= sub._message:
-            history_list.data = gmail.get_messages()
+            history_list.data = gmail.get_history_list(history_Id)
             history_list.save_data(history_list_path)
-            history_list.get_last_message()
-            mail.data = gmail.get_message(history_list.last_message)
-            print("Title: ", mail.get_title)
-            mail.save_data(message_path)
+            if history_Id != sub._message['historyId']:w
+                print(f"History ID: {sub._message['historyId']}")
+                history_list.get_messages_ids(history_Id)
+                if history_list.messages_ids:
+                    for hist_id in history_list.messages_ids:
+                        msg = gmail.get_message(hist_id)
+                        for name in msg['payload']['headers']:
+                            if name['Name'] == 'Subject':
+                                print(name['Value'])
+            history_Id = sub._message['historyId']
+            history_list.set_historyId(history_Id)
 
 if __name__ == "__main__":
     main()

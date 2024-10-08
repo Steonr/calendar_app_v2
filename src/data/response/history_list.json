@@ -1,406 +1,67 @@
 {
-    "messages": [
-        {
-            "id": "19237d6b081bb537",
-            "threadId": "19237d6b081bb537"
-        },
-        {
-            "id": "192378b95a64d272",
-            "threadId": "18d08f549fc1fab4"
-        },
-        {
-            "id": "192342e8b6aee72f",
-            "threadId": "192342e8b6aee72f"
-        },
-        {
-            "id": "1923397c37ea6bff",
-            "threadId": "1923397c37ea6bff"
-        },
-        {
-            "id": "19233974d4968558",
-            "threadId": "19233974d4968558"
-        },
-        {
-            "id": "1923397315c31895",
-            "threadId": "1923397315c31895"
-        },
-        {
-            "id": "1923396f42e301ba",
-            "threadId": "1923396f42e301ba"
-        },
-        {
-            "id": "192337c1c4f93f05",
-            "threadId": "192337c1c4f93f05"
-        },
-        {
-            "id": "192325cfaa7302ea",
-            "threadId": "192325cfaa7302ea"
-        },
-        {
-            "id": "192306c60eb6150e",
-            "threadId": "192306c60eb6150e"
-        },
-        {
-            "id": "1922ec97aa68dcfa",
-            "threadId": "1922ec97aa68dcfa"
-        },
-        {
-            "id": "1922eac94c263ef3",
-            "threadId": "1922eac94c263ef3"
-        },
-        {
-            "id": "1922ea90e51bbefb",
-            "threadId": "1922ea90e51bbefb"
-        },
-        {
-            "id": "1922e399a96f3768",
-            "threadId": "1922e399a96f3768"
-        },
-        {
-            "id": "1922df2782a55913",
-            "threadId": "1922df2782a55913"
-        },
-        {
-            "id": "1922dae270734b8b",
-            "threadId": "1922dae270734b8b"
-        },
-        {
-            "id": "1922d967653aa7da",
-            "threadId": "1922d96030ac7a95"
-        },
-        {
-            "id": "1922d96030ac7a95",
-            "threadId": "1922d96030ac7a95"
-        },
-        {
-            "id": "1922d94f91fb4d64",
-            "threadId": "1922d94f91fb4d64"
-        },
-        {
-            "id": "1922a5ad72003a39",
-            "threadId": "1922a5ad72003a39"
-        },
-        {
-            "id": "19229a165a8ea531",
-            "threadId": "19229a165a8ea531"
-        },
-        {
-            "id": "192297f269fe4ecc",
-            "threadId": "192297f269fe4ecc"
-        },
-        {
-            "id": "192297d41997a15b",
-            "threadId": "192297d41997a15b"
-        },
-        {
-            "id": "192296c54f35de3e",
-            "threadId": "192296c54f35de3e"
-        },
-        {
-            "id": "19228d39f57aa2ec",
-            "threadId": "19228d39f57aa2ec"
-        },
-        {
-            "id": "192286d004a2dcb0",
-            "threadId": "192286d004a2dcb0"
-        },
-        {
-            "id": "1922459f7501eda0",
-            "threadId": "1922459f7501eda0"
-        },
-        {
-            "id": "192205e405f619b6",
-            "threadId": "192205e405f619b6"
-        },
-        {
-            "id": "1921fb193185d3a3",
-            "threadId": "1921fb193185d3a3"
-        },
-        {
-            "id": "1921f482224bf363",
-            "threadId": "1921f482224bf363"
-        },
-        {
-            "id": "1921f1b4361aa633",
-            "threadId": "1921f1b4361aa633"
-        },
-        {
-            "id": "19219557e2bed86c",
-            "threadId": "19219557e2bed86c"
-        },
-        {
-            "id": "192191d600fe9f81",
-            "threadId": "192191d600fe9f81"
-        },
-        {
-            "id": "19218c842ddb0c54",
-            "threadId": "19218c842ddb0c54"
-        },
-        {
-            "id": "19214f4f211b2e7b",
-            "threadId": "19214f4f211b2e7b"
-        },
-        {
-            "id": "19214e5d49fdff3e",
-            "threadId": "19214e5d49fdff3e"
-        },
-        {
-            "id": "1920fd06e00762ac",
-            "threadId": "1920fd06e00762ac"
-        },
-        {
-            "id": "1920f88f259f2d09",
-            "threadId": "1920f88f259f2d09"
-        },
-        {
-            "id": "1920f87f5de58a49",
-            "threadId": "1920f87f5de58a49"
-        },
-        {
-            "id": "1920f71d920cd092",
-            "threadId": "1920f71d920cd092"
-        },
-        {
-            "id": "1920f37766daf04e",
-            "threadId": "1920f37766daf04e"
-        },
-        {
-            "id": "1920eb3a81cee1b1",
-            "threadId": "1920eb3a81cee1b1"
-        },
-        {
-            "id": "1920ea559c7515bd",
-            "threadId": "1920ea559c7515bd"
-        },
-        {
-            "id": "1920dcf6567337f8",
-            "threadId": "1920dcf6567337f8"
-        },
-        {
-            "id": "1920cdaf17fa923f",
-            "threadId": "1920cdaf17fa923f"
-        },
-        {
-            "id": "1920acc08b558c38",
-            "threadId": "1920acc08b558c38"
-        },
-        {
-            "id": "1920aa48d81878f4",
-            "threadId": "1920aa48d81878f4"
-        },
-        {
-            "id": "1920931adab23a57",
-            "threadId": "1920931adab23a57"
-        },
-        {
-            "id": "19206d97c0ac0086",
-            "threadId": "19206d97c0ac0086"
-        },
-        {
-            "id": "1920692c086b2508",
-            "threadId": "1920692c086b2508"
-        },
-        {
-            "id": "19205ce5b2bb01f3",
-            "threadId": "19205ce5b2bb01f3"
-        },
-        {
-            "id": "1920598ac1cbbb42",
-            "threadId": "1920598ac1cbbb42"
-        },
-        {
-            "id": "192056c5bb6cb57f",
-            "threadId": "192056c5bb6cb57f"
-        },
-        {
-            "id": "192049b73d9c3cec",
-            "threadId": "192049b73d9c3cec"
-        },
-        {
-            "id": "192046ad854c82f0",
-            "threadId": "192046ad854c82f0"
-        },
-        {
-            "id": "192037403ac54d86",
-            "threadId": "192037403ac54d86"
-        },
-        {
-            "id": "19200ec339984e1e",
-            "threadId": "19200ec339984e1e"
-        },
-        {
-            "id": "191ff8ae3f7f970c",
-            "threadId": "191ff8ae3f7f970c"
-        },
-        {
-            "id": "191ff6ab5f36789b",
-            "threadId": "191ff6ab5f36789b"
-        },
-        {
-            "id": "191ff486c410f37b",
-            "threadId": "191ff486c410f37b"
-        },
-        {
-            "id": "191fc98b56a9d891",
-            "threadId": "191fc98b56a9d891"
-        },
-        {
-            "id": "191fb9298981ee03",
-            "threadId": "191fb9298981ee03"
-        },
-        {
-            "id": "191fb56458edc0c9",
-            "threadId": "191fb56458edc0c9"
-        },
-        {
-            "id": "191fb2366459acaa",
-            "threadId": "191fb2366459acaa"
-        },
-        {
-            "id": "191fa7d5f08995b8",
-            "threadId": "191fa7d5f08995b8"
-        },
-        {
-            "id": "191f9f15b930f4ca",
-            "threadId": "191f9f15b930f4ca"
-        },
-        {
-            "id": "191f9e23820359a8",
-            "threadId": "191f9e23820359a8"
-        },
-        {
-            "id": "191f962c0e2bd7fd",
-            "threadId": "191f962c0e2bd7fd"
-        },
-        {
-            "id": "191f5483a53b4cee",
-            "threadId": "191f5483a53b4cee"
-        },
-        {
-            "id": "191f47df0c68e9de",
-            "threadId": "191f47df0c68e9de"
-        },
-        {
-            "id": "191f3746a88f0e40",
-            "threadId": "191f3746a88f0e40"
-        },
-        {
-            "id": "191f0eeb06922b32",
-            "threadId": "191f0eeb06922b32"
-        },
-        {
-            "id": "191f0dfefde27d9c",
-            "threadId": "191f0dfefde27d9c"
-        },
-        {
-            "id": "191f03635a0549c9",
-            "threadId": "191f03635a0549c9"
-        },
-        {
-            "id": "191ee5556f8fc4f8",
-            "threadId": "191ee5556f8fc4f8"
-        },
-        {
-            "id": "191ec72170a6ae1b",
-            "threadId": "191ec72170a6ae1b"
-        },
-        {
-            "id": "191ec54a56d7dad5",
-            "threadId": "191ec54a56d7dad5"
-        },
-        {
-            "id": "191ebc1d140d5a8d",
-            "threadId": "191ebc1d140d5a8d"
-        },
-        {
-            "id": "191eba4af11d3bd5",
-            "threadId": "191e06f442174e70"
-        },
-        {
-            "id": "191eb8a457dedd3c",
-            "threadId": "191e06f442174e70"
-        },
-        {
-            "id": "191eb84f06ef5356",
-            "threadId": "191eb84f06ef5356"
-        },
-        {
-            "id": "191ea992e3b58a21",
-            "threadId": "191ea992e3b58a21"
-        },
-        {
-            "id": "191ea40e5873a768",
-            "threadId": "191ea40e5873a768"
-        },
-        {
-            "id": "191ea3f0c355532e",
-            "threadId": "191ea3f0c355532e"
-        },
-        {
-            "id": "191ea3b2fa2cdf6b",
-            "threadId": "191ea3b2fa2cdf6b"
-        },
-        {
-            "id": "191e7f18201cd943",
-            "threadId": "191e7f18201cd943"
-        },
-        {
-            "id": "191e757735b6af20",
-            "threadId": "191e757735b6af20"
-        },
-        {
-            "id": "191e7553a5ba6c3e",
-            "threadId": "191e06f442174e70"
-        },
-        {
-            "id": "191e727b4d195b60",
-            "threadId": "191e727b4d195b60"
-        },
-        {
-            "id": "191e722114854062",
-            "threadId": "191e722114854062"
-        },
-        {
-            "id": "191e69de9b904c2d",
-            "threadId": "191e69de9b904c2d"
-        },
-        {
-            "id": "191e68dd5dd159ae",
-            "threadId": "191e68dd5dd159ae"
-        },
-        {
-            "id": "191e5ab82fa4d54e",
-            "threadId": "191e5ab82fa4d54e"
-        },
-        {
-            "id": "191e5a5df5c5099d",
-            "threadId": "191e5a5df5c5099d"
-        },
-        {
-            "id": "191e5a221050feae",
-            "threadId": "191e5a221050feae"
-        },
-        {
-            "id": "191e56cb4175a456",
-            "threadId": "191e56cb4175a456"
-        },
-        {
-            "id": "191e54070ef50bc5",
-            "threadId": "191e54070ef50bc5"
-        },
-        {
-            "id": "191e30395ef10658",
-            "threadId": "191e30395ef10658"
-        },
-        {
-            "id": "191e302a8c976493",
-            "threadId": "191e302a8c976493"
-        },
-        {
-            "id": "191e196bede77322",
-            "threadId": "191e196bede77322"
+    "history": [
+        {
+            "id": "4509055",
+            "messages": [
+                {
+                    "id": "19269f5eb77519cb",
+                    "threadId": "19269f5eb77519cb"
+                }
+            ],
+            "messagesAdded": [
+                {
+                    "message": {
+                        "id": "19269f5eb77519cb",
+                        "threadId": "19269f5eb77519cb",
+                        "labelIds": [
+                            "CATEGORY_PROMOTIONS",
+                            "UNREAD",
+                            "INBOX"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "id": "4509129",
+            "messages": [
+                {
+                    "id": "1926900859d20dcc",
+                    "threadId": "1926900859d20dcc"
+                }
+            ]
+        },
+        {
+            "id": "4509201",
+            "messages": [
+                {
+                    "id": "1926900859d20dcc",
+                    "threadId": "1926900859d20dcc"
+                }
+            ]
+        },
+        {
+            "id": "4509265",
+            "messages": [
+                {
+                    "id": "1926bb37eb67fa94",
+                    "threadId": "1926bb37eb67fa94"
+                }
+            ],
+            "messagesAdded": [
+                {
+                    "message": {
+                        "id": "1926bb37eb67fa94",
+                        "threadId": "1926bb37eb67fa94",
+                        "labelIds": [
+                            "CATEGORY_PROMOTIONS",
+                            "UNREAD",
+                            "INBOX"
+                        ]
+                    }
+                }
+            ]
         }
     ],
-    "nextPageToken": "09083073516289542209",
-    "resultSizeEstimate": 201
+    "historyId": "4509343"
 }

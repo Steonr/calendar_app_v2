@@ -1,3 +1,5 @@
+from domain.entities.gmail import Response
+
 import json
 import time
 from abc import ABC, abstractmethod
@@ -12,7 +14,7 @@ def save_data(self, file_path):
 
 class SubscriberClient:
     def __init__(self):
-        self._message = {}
+        self._message = ""
         self._messages = []
         self._project_id = "myproject-266417"
         self._topic_id = "checkGmail"
@@ -51,7 +53,8 @@ class SubscriberClient:
                 # Acknowledges the received messages so they will not be sent again.
                 self._sub_client.acknowledge(request={"subscription": self._sub_path, "ack_ids": ack_ids})
                 print(f"Received and acknowledged {len(response.received_messages)} message(s) from {self._sub_path}.")
-
+        message = self._message['historyId'] if 'historyId' in self._message else ""
+        return message
     def streaming_pull(self, file_path, timeout = 5.0) -> None:
         ''' When `timeout` is not set, result() will block indefinitely
         Args:

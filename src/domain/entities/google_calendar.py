@@ -3,7 +3,9 @@
 from dataclasses import dataclass, asdict
 from src.domain.value_objects import ShiftId, uuid
 
+import json
 import datetime
+
 
 @dataclass
 class Shift:
@@ -29,3 +31,5 @@ class Shift:
         """ convert data into dictionary
         """
         return asdict(self)
+
+

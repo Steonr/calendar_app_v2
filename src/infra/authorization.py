@@ -34,7 +34,6 @@ class AuthorizationService:
             self._refresh_or_validate_credentials()
             self.save_credentials()
         return self._creds
-
     def _refresh_or_validate_credentials(self) -> None:
         if self._creds and self._creds.expired and self._creds.refresh_token:
             self._creds.refresh(Request())   
