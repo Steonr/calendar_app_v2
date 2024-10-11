@@ -3,6 +3,7 @@ from domain.entities.gmail import Response
 from infra.ultility import save_json
 
 import base64
+import json
 
 from googleapiclient.errors import HttpError
 from googleapiclient.discovery import build
@@ -34,8 +35,10 @@ class GmailRepository(IGmailRepository):
     def get_message(self, Id: str):
         try: 
             message = self._service.users().messages().get(userId="me", id=Id).execute()
-        except HttpError:
-            print(f"HttpError: {HttpError}\n when trying to get message with message ID: {Id}")
+        except HttpError as err:
+            if err.resp.get('content-type', '').startswith('application/json'):
+                reason = json.loads(err.content).get('error').get('errors')[0].get('reason')
+            print(f"HttpError: {reason}\n With message id: {Id}")
             message = ''
         return message
     def get_subject_from_id(self, message_id):
@@ -76,7 +79,7 @@ class GmailRepository(IGmailRepository):
     def get_attachment(self, path, message_id, attachment_id):
         att = self._service.users().messages().attachments().get(userId='me', messageId=message_id, id=attachment_id).execute()
         data = att['data']
-        file_data = base64.urlsafe_b64decode(data)
+        file_data = base64.urlsafe_b64decode(data.encode('UTF-8'))
 
         with open(path, 'wb') as f:
             f.write(file_data)
@@ -90,15 +93,19 @@ class GmailRepository(IGmailRepository):
         return self._search_name_in_payload(payload)
 
     def _get_ids_from_history_list(self):
-        for history_id in self.historylist['history']:
-            self._history_id_list.append(history_id)
-            for message in history_id['messages']:
-                self._history_message_list.append(message['id'])
+        self._history_id_list = []
+        self._history_message_list = []
+        if 'history' in self.historylist:
+            for history_id in self.historylist['history']:
+                self._history_id_list.append(history_id)
+                for message in history_id['messages']:
+                    self._history_message_list.append(message['id'])
 
     def get_subjects_from_history_list(self):
         for history_id in self._history_id_list:
             for message in history_id['messages']:
                 msg = self.get_message(message['id'])
-                for header in msg['payload']['headers']:
-                            if header['name'] == 'Subject':
-                                print(f"Message subject: {header['value']}")
+                if msg != '':
+                    for header in msg['payload']['headers']:
+                                if header['name'] == 'Subject':
+                                    print(f"Message subject: {header['value']}")

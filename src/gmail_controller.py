@@ -45,7 +45,8 @@ class GmailController:
         response = watch_request_usecase.execute()
         while True: 
             message_id = message_usecase.listen(history_list_path, response_path, response)
-            attachment_usecase.get_attachment(attachment_path, message_id)    
+            attachment_usecase.get_attachment(attachment_path, message_id)
+                
 
         # if response.historyId != old_historyId:
         #     old_historyId = response.historyId

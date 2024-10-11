@@ -53,7 +53,7 @@ class ListenForMessageUseCase:
             response.historyId = self.sub.pull_message()
             if response.historyId not in [old_historyId, '']:
                 response.save(response_path)
-                print(f"New historyId: {response.historyId}")
+                print(f"\nNew historyId: {response.historyId}")
                 self.gmail.get_history_list(self.data_paths['history_list'], old_historyId)
                 self.gmail.get_subjects_from_history_list()
                 message_id = self.gmail.search_history_list_subject(self.message['subject'])
@@ -66,6 +66,7 @@ class AttachmentUseCase:
         self.gmail = IGmailRepository
     def get_attachment(self, path, message_id):
         attachment_id = self.gmail.get_attachment_ids(message_id)
-        self.gmail.get_attachment(path, message_id, attachment_id)
         attachment_name = self.gmail.get_attachment_name(message_id, attachment_id)
+        path += f'{attachment_name}'
+        self.gmail.get_attachment(path, message_id, attachment_id)
         print(f"\nAttachment: {attachment_name}\nAttachment id: {attachment_id} saved to:\n{path}")
