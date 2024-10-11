@@ -3,9 +3,71 @@ import pandas as pd
 import openpyxl
 import xlrd
 
-months = {  
+month_mapping = {  
             "januari": 1,
-            "februari": 2}
+            "februari": 2,
+            "maart": 3,
+            "april": 4,
+            "mei": 5,
+            "juni": 6,
+            "juli": 7,
+            "augustus": 8,
+            "september": 9,
+            "oktober": 10,
+            "november": 11,
+            "december": 12
+        }
+
+shiften = { "V34" : {
+            "startUur" : "07:30",
+            "eindUur" : "15:36",
+            "kleur" : "blue"},
+
+            "V38" : {
+            "startUur" : "07:42",
+            "eindUur" : "17:00",
+            "kleur" : "bold green"},
+
+            "D23" : {
+            "startUur" : "08:00",
+            "eindUur" : "16:06",
+            "kleur" : "purple"},
+
+            "D52" : {
+            "startUur" : "08:30",
+            "eindUur" : "17:00",
+            "kleur" : "red"},
+
+            "L32" : {
+            "startUur" : "15:12",
+            "eindUur" : "19:00",
+            "kleur" : "yellow"},
+
+            "L06" : {
+            "startUur" : "12:42",
+            "eindUur" : "20:48",
+            "kleur" : "turquoise"},
+
+            "D76" : {
+            "startUur" : "10:00",
+            "eindUur" : "13:12",
+            "kleur" : "gray"},
+
+            "ADV" : {
+            "startUur" : "08:00",
+            "eindUur" : "11:48",
+            "kleur" : "bold blue"},
+
+            "VRIJ" : {
+            "startUur" : "00:00",
+            "eindUur" : "23:59",
+            "kleur" : "red"},
+
+            "V" : {
+            "startUur" : "08:00",
+            "eindUur" : "11:48",
+            "kleur" : "bold blue"}      
+            }
 
             
 class ExcelReader:
@@ -64,10 +126,12 @@ class ProcessDataFrame:
     def remove_empty_values(self):
         self.data = self.df.drop([0,1,2])
         self.data = self.data.dropna()
-        print(self.data)
     def string_to_dates(self):
-        pass
-    #    print(self.df["Month Year"])
+        # Replace month names with their corresponding numbers
+        self.data['Month'] = self.data['Month'].map(month_mapping)        
+        # Convert Year, Month, and Day into a DateTime
+        self.data['Date'] = pd.to_datetime(self.data[['Year', 'Month', 'Day']])
+        self.data = self.data[['Year', 'Month', 'Day', 'Date', 'Shift']]
     def get_shiften_df(self):
         pass
     def set_column_names(self):
@@ -86,5 +150,5 @@ if __name__ == "__main__":
     process = ProcessDataFrame(df)
     process.set_column_names()
     process.remove_empty_values()
-    # process.string_to_dates()
-    # df = process.get_shiften_df()
+    process.string_to_dates()
+    print(process.data)
