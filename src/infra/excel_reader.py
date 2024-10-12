@@ -18,55 +18,55 @@ month_mapping = {
             "december": 12
         }
 
-shiften = { "V34" : {
-            "startUur" : "07:30",
-            "eindUur" : "15:36",
-            "kleur" : "blue"},
+shiften = { "v34" : {
+            "start_time" : "07:30",
+            "end_time" : "15:36",
+            "color" : "blue"},
 
-            "V38" : {
-            "startUur" : "07:42",
-            "eindUur" : "17:00",
-            "kleur" : "bold green"},
+            "v38" : {
+            "start_time" : "07:42",
+            "end_time" : "17:00",
+            "color" : "bold green"},
 
-            "D23" : {
-            "startUur" : "08:00",
-            "eindUur" : "16:06",
-            "kleur" : "purple"},
+            "d23" : {
+            "start_time" : "08:00",
+            "end_time" : "16:06",
+            "color" : "purple"},
 
-            "D52" : {
-            "startUur" : "08:30",
-            "eindUur" : "17:00",
-            "kleur" : "red"},
+            "d52" : {
+            "start_time" : "08:30",
+            "end_time" : "17:00",
+            "color" : "red"},
 
-            "L32" : {
-            "startUur" : "15:12",
-            "eindUur" : "19:00",
-            "kleur" : "yellow"},
+            "l32" : {
+            "start_time" : "15:12",
+            "end_time" : "19:00",
+            "color" : "yellow"},
 
-            "L06" : {
-            "startUur" : "12:42",
-            "eindUur" : "20:48",
-            "kleur" : "turquoise"},
+            "l06" : {
+            "start_time" : "12:42",
+            "end_time" : "20:48",
+            "color" : "turquoise"},
 
-            "D76" : {
-            "startUur" : "10:00",
-            "eindUur" : "13:12",
-            "kleur" : "gray"},
+            "d76" : {
+            "start_time" : "10:00",
+            "end_time" : "13:12",
+            "color" : "gray"},
 
-            "ADV" : {
-            "startUur" : "08:00",
-            "eindUur" : "11:48",
-            "kleur" : "bold blue"},
+            "adv" : {
+            "start_time" : "08:00",
+            "end_time" : "11:48",
+            "color" : "bold blue"},
 
-            "VRIJ" : {
-            "startUur" : "00:00",
-            "eindUur" : "23:59",
-            "kleur" : "red"},
+            "vrij" : {
+            "start_time" : "00:00",
+            "end_time" : "23:59",
+            "color" : "red"},
 
-            "V" : {
-            "startUur" : "08:00",
-            "eindUur" : "11:48",
-            "kleur" : "bold blue"}      
+            "v" : {
+            "start_time" : "08:00",
+            "end_time" : "11:48",
+            "color" : "bold blue"}      
             }
 
             
@@ -142,6 +142,11 @@ class ProcessDataFrame:
         self.df["Month"] = data[0]
         self.df.drop(columns=["Date"], inplace=True)
         self.df = self.df[['Year', 'Month', 'Week', 'Day', 'Shift']]
+    def add_dictionary_data(self):
+        # Create new columns for start_time, end_time, and color using map
+        self.data['start_time'] =  self.data['Shift'].map(lambda x: shiften[x]["start_time"] if x in shiften else "")
+        self.data['end_time'] =  self.data['Shift'].map(lambda x: shiften[x]["end_time"] if x in shiften else "")
+        self.data['color'] =  self.data['Shift'].map(lambda x: shiften[x]["color"] if x in shiften else "")
 
 if __name__ == "__main__":
     path = './src/data/attachments/2de kwartaal 2024.xlsx'
@@ -151,4 +156,5 @@ if __name__ == "__main__":
     process.set_column_names()
     process.remove_empty_values()
     process.string_to_dates()
+    process.add_dictionary_data()
     print(process.data)
