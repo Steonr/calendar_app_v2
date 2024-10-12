@@ -38,7 +38,7 @@ class GmailRepository(IGmailRepository):
         except HttpError as err:
             if err.resp.get('content-type', '').startswith('application/json'):
                 reason = json.loads(err.content).get('error').get('errors')[0].get('reason')
-            print(f"HttpError: {reason}\n With message id: {Id}")
+            print(f"HttpError: message {reason} with message id: {Id}")
             message = ''
         return message
     def get_subject_from_id(self, message_id):
@@ -50,11 +50,15 @@ class GmailRepository(IGmailRepository):
         self._save_history_list(list_path)
         self._get_ids_from_history_list()
     def search_history_list_subject(self, subject: str):
+        msg = ''
         if "history" not in self.historylist:
             return ""
         for historyId in self.historylist['history']:
             for message in historyId['messages']:
-                msg = self.get_message(message['id'])
+                if 'messagesAdded' in historyId:
+                    for messageAdded in historyId['messagesAdded']:
+                        if 'DRAFT' not in messageAdded['message']['labelIds']:
+                            msg = self.get_message(message['id'])
                 if 'payload' in msg:
                     sender = ""
                     message_subject_id = ""
@@ -102,9 +106,13 @@ class GmailRepository(IGmailRepository):
                     self._history_message_list.append(message['id'])
 
     def get_subjects_from_history_list(self):
+        msg = ''
         for history_id in self._history_id_list:
             for message in history_id['messages']:
-                msg = self.get_message(message['id'])
+                if 'messagesAdded' in history_id:
+                    for messageAdded in history_id['messagesAdded']:
+                        if 'DRAFT' not in messageAdded['message']['labelIds']:
+                            msg = self.get_message(message['id'])
                 if msg != '':
                     for header in msg['payload']['headers']:
                                 if header['name'] == 'Subject':
