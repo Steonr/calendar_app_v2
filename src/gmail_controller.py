@@ -47,13 +47,3 @@ class GmailController:
             message_id = message_usecase.listen(history_list_path, response_path, response)
             attachment_usecase.get_attachment(attachment_path, message_id)
                 
-
-        # if response.historyId != old_historyId:
-        #     old_historyId = response.historyId
-        #     gmail.get_history_list(response.historyId)
-        #     history_list_dict = gmail.historylist
-        #     save_json(history_list_dict, self.data_paths['response'])
-
-        #     self.sub.pull_message()
-        #     response.historyId = self.sub._message['historyId']
-        #     response.save(self.data_paths['response'])
