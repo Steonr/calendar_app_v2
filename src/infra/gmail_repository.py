@@ -5,8 +5,33 @@ from infra.ultility import save_json
 import base64
 import json
 
+import pandas as pd
 from googleapiclient.errors import HttpError
 from googleapiclient.discovery import build
+
+
+class history_list_serializer:
+    def __init__(self, json_dict):
+        self._json_dict = json_dict
+        self._obj = ''
+
+    def get_df(self):
+        for history_dict in self._json_dict['history']:
+            history_id = history_dict['id']
+            print(f'{history_id=}') 
+            for message in history_dict['messages']:
+                message_id = message['id']
+                print(f'{message_id=}')
+            if 'labelAdded' in history_dict:
+                for labelAdded in history_dict['labelsAdded']:
+                    message_id = labelAdded['message']['id']
+                    label_ids = labelAdded['message']['labelIds']
+                    print(f'{label_ids=}')
+            if 'messagesAdded' in history_dict:
+                for labelAdded in history_dict['messagesAdded']:
+                    message_id = labelAdded['message']['id']
+                    message_added = labelAdded['message']['labelIds']
+                    print(f'{message_added=}')
 
 class GmailRepository(IGmailRepository):
     def __init__(self, credentials):
@@ -107,13 +132,24 @@ class GmailRepository(IGmailRepository):
 
     def get_subjects_from_history_list(self):
         msg = ''
-        for history_id in self._history_id_list:
-            for message in history_id['messages']:
-                if 'messagesAdded' in history_id:
-                    for messageAdded in history_id['messagesAdded']:
-                        if 'DRAFT' not in messageAdded['message']['labelIds']:
-                            msg = self.get_message(message['id'])
-                if msg != '':
-                    for header in msg['payload']['headers']:
-                                if header['name'] == 'Subject':
-                                    print(f"Message subject: {header['value']}")
+        # for history_id in self._history_id_list:
+        history_id = self._history_id_list[0]
+        for message in history_id['messages']:
+            if 'messagesAdded' in history_id:
+                for messageAdded in history_id['messagesAdded']:
+                    if 'DRAFT' not in messageAdded['message']['labelIds']:
+                        msg = self.get_message(message['id'])
+            if msg != '':
+                for header in msg['payload']['headers']:
+                            if header['name'] == 'Subject':
+                                print(f"Message subject: {header['value']}")
+
+
+if __name__ == '__main__':
+
+    path = './src/data/response/history_list.json'
+    with open(path, 'r') as json_dict:
+        hist_dict = json.load(json_dict)
+    
+    hist_list_serializer = history_list_serializer(hist_dict)
+    hist_list_serializer.get_df()
