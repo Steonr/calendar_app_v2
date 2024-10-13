@@ -55,7 +55,9 @@ class ListenForMessageUseCase:
                 response.save(response_path)
                 print(f"\nNew historyId: {response.historyId}")
                 self.gmail.get_history_list(self.data_paths['history_list'], old_historyId)
-                self.gmail.get_subjects_from_history_list()
+                df = self.gmail.get_subjects_from_history_list()
+                df = self.gmail.add_subjects_to_df(df)
+                print(df)
                 message_id = self.gmail.search_history_list_subject(self.message['subject'])
                 if message_id != "":
                     return message_id
