@@ -10,28 +10,41 @@ from googleapiclient.errors import HttpError
 from googleapiclient.discovery import build
 
 
-class history_list_serializer:
+class HistoryListSerializer:
     def __init__(self, json_dict):
         self._json_dict = json_dict
-        self._obj = ''
-
+    
     def get_df(self):
+        data = []
         for history_dict in self._json_dict['history']:
             history_id = history_dict['id']
-            print(f'{history_id=}') 
             for message in history_dict['messages']:
                 message_id = message['id']
-                print(f'{message_id=}')
-            if 'labelAdded' in history_dict:
-                for labelAdded in history_dict['labelsAdded']:
-                    message_id = labelAdded['message']['id']
-                    label_ids = labelAdded['message']['labelIds']
-                    print(f'{label_ids=}')
-            if 'messagesAdded' in history_dict:
-                for labelAdded in history_dict['messagesAdded']:
-                    message_id = labelAdded['message']['id']
-                    message_added = labelAdded['message']['labelIds']
-                    print(f'{message_added=}')
+                
+                row = {
+                    'history_id': history_id,
+                    'message_id': message_id,
+                    'label_ids': self._extract_label_ids(history_dict, message_id),
+                    'message_added': self._extract_message_added(history_dict, message_id)
+                }
+                data.append(row)
+        return pd.DataFrame(data)
+
+    def _extract_label_ids(self, history_dict, message_id):
+        """Extract label IDs from labelAdded."""
+        if 'labelAdded' in history_dict:
+            for labelAdded in history_dict['labelsAdded']:
+                if labelAdded['message']['id'] == message_id:
+                    return labelAdded['message']['labelIds']
+        return None
+
+    def _extract_message_added(self, history_dict, message_id):
+        """Extract message labels from messagesAdded."""
+        if 'messagesAdded' in history_dict:
+            for messagesAdded in history_dict['messagesAdded']:
+                if messagesAdded['message']['id'] == message_id:
+                    return messagesAdded['message']['labelIds']
+        return None
 
 class GmailRepository(IGmailRepository):
     def __init__(self, credentials):
@@ -151,5 +164,5 @@ if __name__ == '__main__':
     with open(path, 'r') as json_dict:
         hist_dict = json.load(json_dict)
     
-    hist_list_serializer = history_list_serializer(hist_dict)
-    hist_list_serializer.get_df()
+    hist_list_serializer = HistoryListSerializer(hist_dict)
+    print(hist_list_serializer.get_df())
