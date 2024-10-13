@@ -16,18 +16,21 @@ class HistoryListSerializer:
     
     def get_df(self):
         data = []
-        for history_dict in self._json_dict['history']:
-            history_id = history_dict['id']
-            for message in history_dict['messages']:
-                message_id = message['id']
-                
-                row = {
-                    'history_id': history_id,
-                    'message_id': message_id,
-                    'label_ids': self._extract_label_ids(history_dict, message_id),
-                    'message_added': self._extract_message_added(history_dict, message_id)
-                }
-                data.append(row)
+        if 'history' in self._json_dict:
+            for history_dict in self._json_dict['history']:
+                history_id = history_dict['id']
+                for message in history_dict['messages']:
+                    message_id = message['id']
+                    
+                    row = {
+                        'history_id': history_id,
+                        'message_id': message_id,
+                        'label_ids': self._extract_label_ids(history_dict, message_id),
+                        'message_added': self._extract_message_added(history_dict, message_id)
+                    }
+                    data.append(row)
+        else:
+            data.append({'history_id': self._json_dict['historyId']})
         return pd.DataFrame(data)
 
     def _extract_label_ids(self, history_dict, message_id):
@@ -109,6 +112,27 @@ class GmailRepository(IGmailRepository):
                             print(f"From: {sender} message received with subject: {subject} and id: {message_subject_id}")
                             return message_subject_id
         return ""
+    def add_subjects_to_df(self, df):
+        if 'message_id' in df:
+            for message_id in df['message_id']:
+                msg = self.get_message(message_id)
+                if 'payload' in msg:
+                    for header in msg['payload']['headers']:
+                        if header['name'] == 'From':
+                            sender = header['value']
+                        if header['name'] == 'Subject':
+                            subject = header['value']
+                            df['subject'] = subject
+                    for body in msg['payload']:
+                        if 'attachmentId' in body:
+                           df['attachment_id'] = body['attachmentId']
+                        else:
+                            for part in msg['payload']['parts']:
+                                if 'attachmentId' in part['body']:
+                                    df['attachment_id'] = part['body']['attachmentId']
+                                if part['filename'] != '':
+                                    df['attachment_name'] = part['filename']
+        return df
     def get_attachment_ids(self, message_id):
         msg = self.get_message(message_id)
         payload = msg['payload']
@@ -145,17 +169,8 @@ class GmailRepository(IGmailRepository):
 
     def get_subjects_from_history_list(self):
         msg = ''
-        # for history_id in self._history_id_list:
-        history_id = self._history_id_list[0]
-        for message in history_id['messages']:
-            if 'messagesAdded' in history_id:
-                for messageAdded in history_id['messagesAdded']:
-                    if 'DRAFT' not in messageAdded['message']['labelIds']:
-                        msg = self.get_message(message['id'])
-            if msg != '':
-                for header in msg['payload']['headers']:
-                            if header['name'] == 'Subject':
-                                print(f"Message subject: {header['value']}")
+        hist_list_serializer = HistoryListSerializer(self.historylist)
+        return hist_list_serializer.get_df()
 
 
 if __name__ == '__main__':
