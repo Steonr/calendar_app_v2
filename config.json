@@ -3,7 +3,7 @@
     "response": "./src/data/response/response.json",
     "history_list": "./src/data/response/history_list.json",
     "messages": "./src/data/response/messages.json",
-    "attachment": "./src/data/attachments/data.xlsx",
+    "attachment": "./src/data/attachments/",
     "google_api_creds": "./src/auth/google_api/application_default_credentials.json",
     "client_secretfile": "./src/auth/gmail/client_secretfile.json",
     "token": "./src/auth/gmail/token.pickle"

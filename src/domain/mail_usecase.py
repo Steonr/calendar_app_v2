@@ -5,7 +5,6 @@ from infra.interfaces.interface_gmail import IGmailRepository
 from infra.interfaces.interface_subscriber import ISubscriber
 from infra.config_loader import ConfigLoader
 
-
 class WatchRequestUseCase():
     def __init__(self, request_dict, IGmailRepository):
         self.response = Response("", "")
@@ -58,7 +57,10 @@ class ListenForMessageUseCase:
                 df = self.gmail.get_subjects_from_history_list()
                 df = self.gmail.add_subjects_to_df(df)
                 print(df)
-                message_id = self.gmail.search_history_list_subject(self.message['subject'])
+                if 'message_id' in df.columns:
+                    message_id = df['message_id'].values[0]
+                    print(f'{message_id=}')
+                # message_id = self.gmail.search_history_list_subject(self.message['subject'])
                 if message_id != "":
                     return message_id
                 old_historyId = response.historyId
@@ -72,3 +74,5 @@ class AttachmentUseCase:
         path += f'{attachment_name}'
         self.gmail.get_attachment(path, message_id, attachment_id)
         print(f"\nAttachment: {attachment_name}\nAttachment id: {attachment_id} saved to:\n{path}")
+    def read_attachment(self):
+        pass

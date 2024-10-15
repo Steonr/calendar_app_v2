@@ -149,7 +149,7 @@ class ProcessDataFrame:
         self.data['color'] =  self.data['Shift'].map(lambda x: shiften[x]["color"] if x in shiften else "")
 
 if __name__ == "__main__":
-    path = './src/data/attachments/2de kwartaal 2024.xlsx'
+    path = './src/data/attachments/Q4 2021.xls'
     excel_reader = ExcelDataExtracter(path, "NUYTS CHRISTINE")
     df = excel_reader.get_df()
     process = ProcessDataFrame(df)

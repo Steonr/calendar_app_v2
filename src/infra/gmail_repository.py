@@ -25,17 +25,24 @@ class HistoryListSerializer:
                     row = {
                         'history_id': history_id,
                         'message_id': message_id,
-                        'label_ids': self._extract_label_ids(history_dict, message_id),
+                        'message_label_ids': self._extract_label_ids(history_dict, message_id),
+                        'added_label_ids': self._extract_added_label_ids(history_dict, message_id),
                         'message_added': self._extract_message_added(history_dict, message_id)
                     }
                     data.append(row)
         else:
             data.append({'history_id': self._json_dict['historyId']})
         return pd.DataFrame(data)
-
+    def _extract_added_label_ids(self, history_dict, message_id):
+        """Extract added label IDs from labelsAdded."""
+        if 'labelsAdded' in history_dict:
+            for labelAdded in history_dict['labelsAdded']:
+                if labelAdded['message']['id'] == message_id:
+                    return labelAdded['labelIds']
+        return None
     def _extract_label_ids(self, history_dict, message_id):
-        """Extract label IDs from labelAdded."""
-        if 'labelAdded' in history_dict:
+        """Extract label IDs from labelsAdded."""
+        if 'labelsAdded' in history_dict:
             for labelAdded in history_dict['labelsAdded']:
                 if labelAdded['message']['id'] == message_id:
                     return labelAdded['message']['labelIds']
@@ -126,7 +133,7 @@ class GmailRepository(IGmailRepository):
                     for body in msg['payload']:
                         if 'attachmentId' in body:
                            df['attachment_id'] = body['attachmentId']
-                        else:
+                        elif 'part' in msg['payload']:
                             for part in msg['payload']['parts']:
                                 if 'attachmentId' in part['body']:
                                     df['attachment_id'] = part['body']['attachmentId']

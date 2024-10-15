@@ -39,6 +39,7 @@ class SubscriberClient:
         with self._sub_client:
             # The subscriber pulls a specific number of messages. The actual
             # number of messages pulled may be smaller than max_messages.
+
             response = self._sub_client.pull(
                 request={"subscription": self._sub_path, "max_messages": NUM_MESSAGES},
                 retry=retry.Retry(deadline=300),

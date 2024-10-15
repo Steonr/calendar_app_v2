@@ -46,4 +46,5 @@ class GmailController:
         while True: 
             message_id = message_usecase.listen(history_list_path, response_path, response)
             attachment_usecase.get_attachment(attachment_path, message_id)
+            attachment_usecase.read_attachment()
                 

@@ -12,6 +12,10 @@ __pycache__/
 # C extensions
 *.so
 
+# Excel-files 
+*.xls
+*.xlsx
+
 # Distribution / packaging
 .Python
 build/
@@ -112,3 +116,6 @@ secrets/
 
 # Auth
 src/auth/
+
+# Data
+src/data/
