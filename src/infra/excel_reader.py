@@ -131,11 +131,30 @@ def invert_rows_cols(data_list):
 
 class ProcessDataFrame:
     def __init__(self, DataFrame):
-        self.df = DataFrame
-    def remove_empty_values(self):
-        self.data = self.df.drop([0,1,2])
+        self._df = DataFrame
+        self.data = np.nan
+    def set_data(self, data):
+        if type(data) == type(pd.DataFrame()):
+            self.data = data
+        else:
+            print(f'Data is {type(data)} and not of type {type(pd.DataFrame())}')
+    def add_data(self, data):
+        if type(data) != type(pd.DataFrame()):
+            print(f'Data is {type(data)} and not of type {type(pd.DataFrame())}')
+            return
+        data = pd.concat([self.get_data(), data], ignore_index=True)
+        self.set_data(data)
+    def get_data(self):
+        return self.data
+    def clean_up_data(self):
+        self._set_column_names()
+        self._remove_empty_values()
+        self._string_to_dates()
+        self._add_dictionary_data()
+    def _remove_empty_values(self):
+        self.data = self._df.drop([0,1,2])
         self.data = self.data.dropna()
-    def string_to_dates(self):
+    def _string_to_dates(self):
         # Replace month names with their corresponding numbers
         self.data['Month'] = self.data['Month'].map(month_mapping)        
         # Convert Year, Month, and Day into a DateTime
@@ -143,15 +162,15 @@ class ProcessDataFrame:
         self.data = self.data[['Year', 'Month', 'Day', 'Date', 'Shift']]
     def get_shiften_df(self):
         pass
-    def set_column_names(self):
-        self.df.dropna(inplace=True)
-        self.df = self.df.set_axis(['Date', 'Week', 'Day', 'Shift'], axis=1)
-        data = self.df['Date'].str.split(" ", n=1, expand=True)
-        self.df["Year"] = data[1]
-        self.df["Month"] = data[0]
-        self.df.drop(columns=["Date"], inplace=True)
-        self.df = self.df[['Year', 'Month', 'Week', 'Day', 'Shift']]
-    def add_dictionary_data(self):
+    def _set_column_names(self):
+        self._df.dropna(inplace=True)
+        self._df = self._df.set_axis(['Date', 'Week', 'Day', 'Shift'], axis=1)
+        data = self._df['Date'].str.split(" ", n=1, expand=True)
+        self._df["Year"] = data[1]
+        self._df["Month"] = data[0]
+        self._df.drop(columns=["Date"], inplace=True)
+        self._df = self._df[['Year', 'Month', 'Week', 'Day', 'Shift']]
+    def _add_dictionary_data(self):
         # Create new columns for start_time, end_time, and color using map
         self.data['start_time'] =  self.data['Shift'].map(lambda x: shiften[x]["start_time"] if x in shiften else "")
         self.data['end_time'] =  self.data['Shift'].map(lambda x: shiften[x]["end_time"] if x in shiften else "")
@@ -162,6 +181,7 @@ class ProcessDataFrame:
 if __name__ == "__main__":
 
     directory = './src/data/attachments/'
+    out_path = './src/data/output/'
     file_names = get_file_names(directory)
     file_paths = [str(directory+file_name) for file_name in file_names]
     
@@ -170,22 +190,16 @@ if __name__ == "__main__":
     
     df = excel_reader.get_df()
     process = ProcessDataFrame(df)
-    process.set_column_names()
-    process.remove_empty_values()
-    process.string_to_dates()
-    process.add_dictionary_data()
+    process.clean_up_data()
     
     for path in file_paths:
         excel_reader = ExcelDataExtracter(path, "NUYTS CHRISTINE")
         df = excel_reader.get_df()
-        process_2 = ProcessDataFrame(df)
-        process_2.set_column_names()
-        process_2.remove_empty_values()
-        process_2.string_to_dates()
-        process_2.add_dictionary_data()
-        
-        process.data = pd.concat([process.data, process_2.data], ignore_index=True)
+        _process = ProcessDataFrame(df)
+        _process.clean_up_data()
+        process.add_data(_process.get_data())
+
     process.data['start_time'].replace('', np.nan, inplace=True)
     process.data = process.data.dropna()
-    process.data.to_excel(f'{directory}output1.xlsx', engine='xlsxwriter')  
+    process.data.to_excel(f'{out_path}output1.xlsx', engine='xlsxwriter')  
     print(process.data)
