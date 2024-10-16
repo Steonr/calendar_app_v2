@@ -46,6 +46,5 @@ class GmailController:
         while True: 
             message_usecase.listen(history_list_path, response_path, response)
             message_usecase.get_attachment(attachment_path)
-            message_usecase.read_attachment()
             excel_usecase.read_excel()
                 
