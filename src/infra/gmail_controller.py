@@ -5,6 +5,7 @@ from infra.authorization import AuthorizationService
 from infra.PubSub_API.subscriber import SubscriberClient
 from infra.ultility import get_json, save_json
 from use_cases.mail_usecase import WatchRequestUseCase, ListenForMessageUseCase
+from use_cases.excel_usecase import ExcelUseCase
 
 import logging
 import os
@@ -12,7 +13,6 @@ import os
 from googleapiclient.errors import HttpError
 
 class GmailController:
-
     def __init__(self):
         self.config_loader = ConfigLoader('./config.json')
         self.data_paths = self.config_loader.get_data_paths()
@@ -40,10 +40,12 @@ class GmailController:
         gmail = GmailRepository(self.creds)
         watch_request_usecase = WatchRequestUseCase(self.request, gmail)
         message_usecase = ListenForMessageUseCase(self.sub, gmail)
+        excel_usecase = ExcelUseCase()
         
         response = watch_request_usecase.execute()
         while True: 
             message_usecase.listen(history_list_path, response_path, response)
             message_usecase.get_attachment(attachment_path)
             message_usecase.read_attachment()
+            excel_usecase.read_excel()
                 

@@ -13,3 +13,8 @@ class ConfigLoader:
 
     def get_message(self):
         return self.config['message']
+
+    def get_shiften(self):
+        return self.config['shiften']
+    def get_excel(self):
+        return self.config['excel']
