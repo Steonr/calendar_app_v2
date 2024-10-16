@@ -69,4 +69,4 @@ class ListenForMessageUseCase:
     def get_attachment(self, path):
         path = path + self.attachment_name
         self.gmail.get_attachment(path, self.message_id, self.attachment_id)
-        print(f"\nAttachment: {self.attachment_name} saved to:\n{path}")
+        print(f"\nAttachment: {self.attachment_name} saved to:{path}\n")

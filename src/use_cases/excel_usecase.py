@@ -15,7 +15,12 @@ class ExcelUseCase:
         self._out_path = self._data_paths['out_path']
     def read_excel(self):
         file_names = get_file_names(self._excel_dir)
-        file_paths = [str(self._excel_dir+file_name) for file_name in file_names]
+        file_paths = []
+
+        for file_name in file_names:
+            file_type = file_name.split('.')[1]
+            if file_type == ('xls' or 'xlsx'):           
+                file_paths.append(str(self._excel_dir+file_name)) 
 
         excel_reader = ExcelDataExtracter(file_paths[0], self._name)
         file_paths.pop(0)

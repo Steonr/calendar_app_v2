@@ -1,152 +1,125 @@
 {
     "history": [
         {
-            "id": "4525429",
+            "id": "4525787",
             "messages": [
                 {
-                    "id": "1929523308bd9ca3",
-                    "threadId": "1929523308bd9ca3"
+                    "id": "17f7a55e552c4f8b",
+                    "threadId": "17f7a55e552c4f8b"
+                },
+                {
+                    "id": "17f7a55ef0ab3fa7",
+                    "threadId": "17f7a55e552c4f8b"
+                },
+                {
+                    "id": "17f7a600903035ef",
+                    "threadId": "17f7a55e552c4f8b"
+                },
+                {
+                    "id": "17f7a601727c2309",
+                    "threadId": "17f7a55e552c4f8b"
+                },
+                {
+                    "id": "180b99bf3c72366f",
+                    "threadId": "17f7a55e552c4f8b"
+                },
+                {
+                    "id": "1926ca201d7761f2",
+                    "threadId": "17f7a55e552c4f8b"
                 }
             ],
-            "messagesAdded": [
+            "labelsAdded": [
                 {
                     "message": {
-                        "id": "1929523308bd9ca3",
-                        "threadId": "1929523308bd9ca3",
+                        "id": "17f7a55e552c4f8b",
+                        "threadId": "17f7a55e552c4f8b",
                         "labelIds": [
-                            "CATEGORY_PROMOTIONS",
                             "UNREAD",
-                            "INBOX"
+                            "IMPORTANT",
+                            "CATEGORY_PERSONAL",
+                            "Label_4420248642088987527"
                         ]
-                    }
-                }
-            ]
-        },
-        {
-            "id": "4525506",
-            "messages": [
-                {
-                    "id": "19295417f97ed94e",
-                    "threadId": "19295417f97ed94e"
-                }
-            ],
-            "messagesAdded": [
+                    },
+                    "labelIds": [
+                        "UNREAD"
+                    ]
+                },
                 {
                     "message": {
-                        "id": "19295417f97ed94e",
-                        "threadId": "19295417f97ed94e",
+                        "id": "17f7a55ef0ab3fa7",
+                        "threadId": "17f7a55e552c4f8b",
                         "labelIds": [
                             "UNREAD",
-                            "CATEGORY_SOCIAL",
-                            "INBOX"
+                            "SENT",
+                            "Label_4420248642088987527"
                         ]
-                    }
-                }
-            ]
-        },
-        {
-            "id": "4525574",
-            "messages": [
-                {
-                    "id": "1926c75d9a606594",
-                    "threadId": "1926c75d9a606594"
-                }
-            ]
-        },
-        {
-            "id": "4525575",
-            "messages": [
-                {
-                    "id": "1926e065468ba574",
-                    "threadId": "1926e065468ba574"
-                }
-            ]
-        },
-        {
-            "id": "4525576",
-            "messages": [
-                {
-                    "id": "192703fda0dba197",
-                    "threadId": "192703fda0dba197"
-                }
-            ]
-        },
-        {
-            "id": "4525577",
-            "messages": [
-                {
-                    "id": "192703fdd6ab816d",
-                    "threadId": "192703fdd6ab816d"
-                }
-            ]
-        },
-        {
-            "id": "4525578",
-            "messages": [
-                {
-                    "id": "192707b0ebc89f5c",
-                    "threadId": "192704d139cd85ee"
-                }
-            ]
-        },
-        {
-            "id": "4525579",
-            "messages": [
-                {
-                    "id": "192705ba9e3977d1",
-                    "threadId": "192705ba9e3977d1"
-                }
-            ]
-        },
-        {
-            "id": "4525580",
-            "messages": [
-                {
-                    "id": "192706751661b364",
-                    "threadId": "19270659035ed9dd"
-                }
-            ]
-        },
-        {
-            "id": "4525581",
-            "messages": [
-                {
-                    "id": "192706c17d5bb4bb",
-                    "threadId": "192706c17d5bb4bb"
-                }
-            ]
-        },
-        {
-            "id": "4525582",
-            "messages": [
-                {
-                    "id": "19270ed8668ef8a8",
-                    "threadId": "19270ed8668ef8a8"
-                }
-            ]
-        },
-        {
-            "id": "4525627",
-            "messages": [
-                {
-                    "id": "192967f93366e709",
-                    "threadId": "192967f93366e709"
-                }
-            ],
-            "messagesAdded": [
+                    },
+                    "labelIds": [
+                        "UNREAD"
+                    ]
+                },
                 {
                     "message": {
-                        "id": "192967f93366e709",
-                        "threadId": "192967f93366e709",
+                        "id": "17f7a600903035ef",
+                        "threadId": "17f7a55e552c4f8b",
                         "labelIds": [
                             "UNREAD",
-                            "CATEGORY_UPDATES",
+                            "IMPORTANT",
+                            "CATEGORY_PERSONAL",
+                            "Label_4420248642088987527"
+                        ]
+                    },
+                    "labelIds": [
+                        "UNREAD"
+                    ]
+                },
+                {
+                    "message": {
+                        "id": "17f7a601727c2309",
+                        "threadId": "17f7a55e552c4f8b",
+                        "labelIds": [
+                            "UNREAD",
+                            "SENT",
+                            "Label_4420248642088987527"
+                        ]
+                    },
+                    "labelIds": [
+                        "UNREAD"
+                    ]
+                },
+                {
+                    "message": {
+                        "id": "180b99bf3c72366f",
+                        "threadId": "17f7a55e552c4f8b",
+                        "labelIds": [
+                            "UNREAD",
+                            "IMPORTANT",
+                            "SENT",
+                            "Label_4420248642088987527"
+                        ]
+                    },
+                    "labelIds": [
+                        "UNREAD"
+                    ]
+                },
+                {
+                    "message": {
+                        "id": "1926ca201d7761f2",
+                        "threadId": "17f7a55e552c4f8b",
+                        "labelIds": [
+                            "UNREAD",
+                            "IMPORTANT",
+                            "Label_5605127103376737195",
+                            "SENT",
                             "INBOX"
                         ]
-                    }
+                    },
+                    "labelIds": [
+                        "UNREAD"
+                    ]
                 }
             ]
         }
     ],
-    "historyId": "4525710"
+    "historyId": "4525819"
 }
