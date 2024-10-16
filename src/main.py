@@ -1,4 +1,4 @@
-from gmail_controller import GmailController
+from infra.gmail_controller import GmailController
 
 
 if __name__ == "__main__":

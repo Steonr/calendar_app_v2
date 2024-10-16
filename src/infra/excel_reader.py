@@ -1,7 +1,16 @@
+from os import walk
+import numpy as np
 # import pandas lib as pd
 import pandas as pd
 import openpyxl
 import xlrd
+
+def get_file_names(path):
+    f = []
+    for (dirpath, dirnames, filenames) in walk(path):
+        f.extend(filenames)
+        break
+    return filenames
 
 month_mapping = {  
             "januari": 1,
@@ -148,13 +157,35 @@ class ProcessDataFrame:
         self.data['end_time'] =  self.data['Shift'].map(lambda x: shiften[x]["end_time"] if x in shiften else "")
         self.data['color'] =  self.data['Shift'].map(lambda x: shiften[x]["color"] if x in shiften else "")
 
+
+
 if __name__ == "__main__":
-    path = './src/data/attachments/Q4 2021.xls'
-    excel_reader = ExcelDataExtracter(path, "NUYTS CHRISTINE")
+
+    directory = './src/data/attachments/'
+    file_names = get_file_names(directory)
+    file_paths = [str(directory+file_name) for file_name in file_names]
+    
+    excel_reader = ExcelDataExtracter(file_paths[0], "NUYTS CHRISTINE")
+    file_paths.pop(0)
+    
     df = excel_reader.get_df()
     process = ProcessDataFrame(df)
     process.set_column_names()
     process.remove_empty_values()
     process.string_to_dates()
     process.add_dictionary_data()
+    
+    for path in file_paths:
+        excel_reader = ExcelDataExtracter(path, "NUYTS CHRISTINE")
+        df = excel_reader.get_df()
+        process_2 = ProcessDataFrame(df)
+        process_2.set_column_names()
+        process_2.remove_empty_values()
+        process_2.string_to_dates()
+        process_2.add_dictionary_data()
+        
+        process.data = pd.concat([process.data, process_2.data], ignore_index=True)
+    process.data['start_time'].replace('', np.nan, inplace=True)
+    process.data = process.data.dropna()
+    process.data.to_excel(f'{directory}output1.xlsx', engine='xlsxwriter')  
     print(process.data)

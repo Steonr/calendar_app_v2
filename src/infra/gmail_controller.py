@@ -4,7 +4,7 @@ from infra.config_loader import ConfigLoader
 from infra.authorization import AuthorizationService
 from infra.PubSub_API.subscriber import SubscriberClient
 from infra.ultility import get_json, save_json
-from domain.mail_usecase import WatchRequestUseCase, ListenForMessageUseCase, AttachmentUseCase
+from use_cases.mail_usecase import WatchRequestUseCase, ListenForMessageUseCase
 
 import logging
 import os
@@ -40,11 +40,10 @@ class GmailController:
         gmail = GmailRepository(self.creds)
         watch_request_usecase = WatchRequestUseCase(self.request, gmail)
         message_usecase = ListenForMessageUseCase(self.sub, gmail)
-        attachment_usecase = AttachmentUseCase(gmail)
         
         response = watch_request_usecase.execute()
         while True: 
-            message_id = message_usecase.listen(history_list_path, response_path, response)
-            attachment_usecase.get_attachment(attachment_path, message_id)
-            attachment_usecase.read_attachment()
+            message_usecase.listen(history_list_path, response_path, response)
+            message_usecase.get_attachment(attachment_path)
+            message_usecase.read_attachment()
                 

@@ -119,7 +119,7 @@ class GmailRepository(IGmailRepository):
                             print(f"From: {sender} message received with subject: {subject} and id: {message_subject_id}")
                             return message_subject_id
         return ""
-    def add_subjects_to_df(self, df):
+    def add_message_data_to_df(self, df):
         if 'message_id' in df:
             for message_id in df['message_id']:
                 msg = self.get_message(message_id)
@@ -133,7 +133,7 @@ class GmailRepository(IGmailRepository):
                     for body in msg['payload']:
                         if 'attachmentId' in body:
                            df['attachment_id'] = body['attachmentId']
-                        elif 'part' in msg['payload']:
+                        elif 'parts' in msg['payload']:
                             for part in msg['payload']['parts']:
                                 if 'attachmentId' in part['body']:
                                     df['attachment_id'] = part['body']['attachmentId']
@@ -146,14 +146,14 @@ class GmailRepository(IGmailRepository):
         for body in payload:
             if 'attachmentId' in body:
                 return body['attachmentId']
-            for part in payload['parts']:
-                if 'attachmentId' in part['body']:
-                    return part['body']['attachmentId']
+            if 'part' in payload:
+                for part in payload['parts']:
+                    if 'attachmentId' in part['body']:
+                        return part['body']['attachmentId']
     def get_attachment(self, path, message_id, attachment_id):
         att = self._service.users().messages().attachments().get(userId='me', messageId=message_id, id=attachment_id).execute()
         data = att['data']
         file_data = base64.urlsafe_b64decode(data.encode('UTF-8'))
-
         with open(path, 'wb') as f:
             f.write(file_data)
     def _search_name_in_payload(self, payload):

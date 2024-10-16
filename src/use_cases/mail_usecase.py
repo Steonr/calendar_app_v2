@@ -47,7 +47,7 @@ class ListenForMessageUseCase:
         self.message = self.config.get_message()
     def listen(self, message_requirements, response_path, response) -> str:
         old_historyId = response.historyId
-        message_id = ""
+        self.message_id = ""
         while True:
             response.historyId = self.sub.pull_message()
             if response.historyId not in [old_historyId, '']:
@@ -55,24 +55,20 @@ class ListenForMessageUseCase:
                 print(f"\nNew historyId: {response.historyId}")
                 self.gmail.get_history_list(self.data_paths['history_list'], old_historyId)
                 df = self.gmail.get_subjects_from_history_list()
-                df = self.gmail.add_subjects_to_df(df)
+                df = self.gmail.add_message_data_to_df(df)
                 print(df)
-                if 'message_id' in df.columns:
-                    message_id = df['message_id'].values[0]
-                    print(f'{message_id=}')
-                # message_id = self.gmail.search_history_list_subject(self.message['subject'])
-                if message_id != "":
-                    return message_id
-                old_historyId = response.historyId
+                if 'attachment_id' in df.columns:
+                    self.message_id = df['message_id'].values[0]
+                    self.attachment_id = df['attachment_id'].values[0]
+                    self.attachment_name = df['attachment_name'].values[0]
+                if not self.message_id:
+                    old_historyId = response.historyId
+                else:
+                    return print(f' Message {self.message_id=}, witch attachment {self.attachment_id=}')
 
-class AttachmentUseCase: 
-    def __init__(self, IGmailRepository):
-        self.gmail = IGmailRepository
-    def get_attachment(self, path, message_id):
-        attachment_id = self.gmail.get_attachment_ids(message_id)
-        attachment_name = self.gmail.get_attachment_name(message_id, attachment_id)
-        path += f'{attachment_name}'
-        self.gmail.get_attachment(path, message_id, attachment_id)
-        print(f"\nAttachment: {attachment_name}\nAttachment id: {attachment_id} saved to:\n{path}")
+    def get_attachment(self, path):
+        path = path + self.attachment_name
+        self.gmail.get_attachment(path, self.message_id, self.attachment_id)
+        print(f"\nAttachment: {self.attachment_name} saved to:\n{path}")
     def read_attachment(self):
         pass
